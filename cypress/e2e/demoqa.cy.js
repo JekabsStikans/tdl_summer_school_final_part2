@@ -57,7 +57,7 @@ describe("Demoqa testing", () => {
     });
 
 
-    it.only("2. - Interactions - Sortable", () => {
+    it("2. - Interactions - Sortable", () => {
         SortablePage.visit();
         //     - Validate that the values are in order - One, Two, Three, Four, Five, Six
         const textSequence1 = ["One", "Two", "Three", "Four", "Five", "Six"];
