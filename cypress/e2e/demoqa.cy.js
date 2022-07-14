@@ -56,14 +56,39 @@ describe("Demoqa testing", () => {
         PracticeFormPage.finalTable.contains("State and City").parent().contains("Haryana Karnal").should("exist");	
     });
 
+
     it.only("2. - Interactions - Sortable", () => {
         SortablePage.visit();
         //     - Validate that the values are in order - One, Two, Three, Four, Five, Six
         const textSequence1 = ["One", "Two", "Three", "Four", "Five", "Six"];
-        SortablePage.tabPaneList.find(".list-group-item").each(($el, index) => {
-            cy.wrap($el).should("have.text", textSequence1[index]);
+        SortablePage.tabPaneList.find(".list-group-item").each(($element, index) => {
+            cy.wrap($element).should("have.text", textSequence1[index]);
         });
+
         //     - Sort the values in following order - Six, Five, Four, Three, Two, One
+        const textSequence2 = ["Six", "Five", "Four", "Three", "Two", "One"];
+        for(let i = 0; i < 6; i++){
+            SortablePage.tabPaneList.contains(textSequence2[i])
+                .trigger('mousedown', { force: true, which: 1, pageX: 600, pageY: 600 })
+                .trigger('mousemove', { force: true, which: 1, pageX: 600, pageY: 1000 })
+                .trigger('mouseup', { force: true });
+        }
         //     - Validate that the values are in order - Six, Five, Four, Three, Two, One
+        SortablePage.tabPaneList.find(".list-group-item").each(($element, index) => {
+            cy.wrap($element).should("have.text", textSequence2[index]);
+        });
+
+        //     - Extra test
+        // const textSequence3 = ["Four", "Five", "Six", "Three", "One", "Two"];
+        // for(let i = 0; i < 6; i++){
+        //     SortablePage.tabPaneList.contains(textSequence3[i])
+        //         .trigger('mousedown', { force: true, which: 1, pageX: 600, pageY: 600 })
+        //         .trigger('mousemove', { force: true, which: 1, pageX: 600, pageY: 1000 })
+        //         .trigger('mouseup', { force: true });
+        // }
+        // //     - Validate that the values are in order - Six, Five, Four, Three, Two, One
+        // SortablePage.tabPaneList.find(".list-group-item").each(($element, index) => {
+        //     cy.wrap($element).should("have.text", textSequence3[index]);
+        // });
     });
 });
