@@ -1,4 +1,5 @@
 import PracticeFormPage from "../pageObjects/PracticeFormPage";
+import SortablePage from "../pageObjects/SortablePage";
 
 
 
@@ -56,8 +57,12 @@ describe("Demoqa testing", () => {
     });
 
     it.only("2. - Interactions - Sortable", () => {
-        //   - ( https://demoqa.com/sortable )  - 
+        SortablePage.visit();
         //     - Validate that the values are in order - One, Two, Three, Four, Five, Six
+        const textSequence1 = ["One", "Two", "Three", "Four", "Five", "Six"];
+        SortablePage.tabPaneList.find(".list-group-item").each(($el, index) => {
+            cy.wrap($el).should("have.text", textSequence1[index]);
+        });
         //     - Sort the values in following order - Six, Five, Four, Three, Two, One
         //     - Validate that the values are in order - Six, Five, Four, Three, Two, One
     });
